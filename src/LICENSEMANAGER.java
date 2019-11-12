@@ -84,7 +84,7 @@ class LICENSEMANAGER {
 
     private static PrivateKey getPrivate()throws Exception {
 
-        byte[] keyBytes = Files.readAllBytes(Paths.get("private.key"));
+        byte[] keyBytes = Files.readAllBytes(Paths.get("keys/private.key"));
 
         PKCS8EncodedKeySpec spec = new PKCS8EncodedKeySpec(keyBytes);
         KeyFactory kf = KeyFactory.getInstance("RSA");
@@ -93,7 +93,7 @@ class LICENSEMANAGER {
 
     private static PublicKey getPublic() throws Exception {
 
-        byte[] keyBytes = Files.readAllBytes(Paths.get("public.key"));
+        byte[] keyBytes = Files.readAllBytes(Paths.get("keys/public.key"));
 
         X509EncodedKeySpec spec =
                 new X509EncodedKeySpec(keyBytes);

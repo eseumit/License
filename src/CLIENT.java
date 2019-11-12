@@ -92,7 +92,7 @@ public class CLIENT {
 
     private static PublicKey getPublic() throws Exception {
 
-        byte[] keyBytes = Files.readAllBytes(Paths.get("public.key"));
+        byte[] keyBytes = Files.readAllBytes(Paths.get("keys/public.key"));
 
         X509EncodedKeySpec spec =
                 new X509EncodedKeySpec(keyBytes);
@@ -107,7 +107,7 @@ public class CLIENT {
                 return (getMAC4Windows());
             }
             else{
-                return mac;
+                System.err.println("Operating System is not Windows.");
             }
         } catch (Exception e) {
             e.printStackTrace();
