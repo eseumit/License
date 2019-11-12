@@ -64,7 +64,7 @@ public class CLIENT {
 
     private static void writeFile(byte[] data) {
         try {
-            FileOutputStream out = new FileOutputStream("license.txt");
+            FileOutputStream out = new FileOutputStream("keys/license.txt");
             out.write(data);
             out.close();
         } catch (IOException e) {
@@ -107,16 +107,6 @@ public class CLIENT {
                 return (getMAC4Windows());
             }
             else{
-                String mac=getMAC4Linux("eth0");
-                if(mac==null){
-                    mac=getMAC4Linux("eth1");
-                    if(mac==null){
-                        mac=getMAC4Linux("eth2");
-                        if(mac==null){
-                            mac=getMAC4Linux("wlp3s0");
-                        }
-                    }
-                }
                 return mac;
             }
         } catch (Exception e) {
@@ -145,20 +135,7 @@ public class CLIENT {
         }
     }
 
-    private static String getMAC4Linux(String name){
-        try {
-            NetworkInterface network = NetworkInterface.getByName(name);
-            byte[] mac = network.getHardwareAddress();
-            StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < mac.length; i++){
-                sb.append(String.format("%02X%s", mac[i], (i < mac.length - 1) ? "-" : ""));
-            }
-            return (sb.toString());
-        }
-        catch (Exception E) {
-            return null;
-        }
-    }
+
 
     private static boolean CheckFile() {
         return new File("license.txt").exists();
