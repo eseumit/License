@@ -14,10 +14,7 @@ class LICENSEMANAGER {
      * Constructor function for license manager.
      * It use display message.
      */
-    LICENSEMANAGER() {
-        System.out.println("License Manager service started...");
 
-    }
 
     /**
      * This function performs the operations of the license manager.

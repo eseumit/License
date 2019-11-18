@@ -20,7 +20,7 @@ public class CLIENT {
         System.out.println("Client started...");
         if (new File("license.txt").exists()) {
             String plainText = plainText_create();
-            String MD5_text = readStringFromFile();
+            String MD5_text = readStringFromFile("license.txt");
             String MD5_Client = getMd5(plainText);
             PublicKey publicKey = getPublic();
             boolean result = verify(MD5_Client, MD5_text, publicKey);
@@ -67,8 +67,10 @@ public class CLIENT {
      * @return plainText with username, serial_number, mac address, disk id, motherboard id.
      */
     private static String plainText_create() throws Exception {
-        String username = "Umit";
-        String serial_number = "0H6U-23BJ-YR84";
+        String userSerial = readStringFromFile("userserial.txt");
+        assert userSerial != null;
+        String username = userSerial.split(" ")[0].trim();
+        String serial_number = userSerial.split(" ")[1].trim();
         String macAddress = getSystemMac();
         String diskID = "-" + getDiskID();
         //String diskID = "-633475686";  // DiskkID windows için ayarlanacak.
@@ -76,6 +78,7 @@ public class CLIENT {
         System.out.println("My MAC: " + macAddress);
         System.out.println("My DiskID: " + diskID);
         System.out.println("My Motherboard ID: " + motherboardID);
+        System.out.println("License Manager service started...");
         return username +"$" + serial_number + "$" + macAddress + "$" + diskID + "$" + motherboardID;
     }
 
@@ -218,10 +221,10 @@ public class CLIENT {
     /**
      * It reads string from license.txt.
      */
-    private static String readStringFromFile() throws FileNotFoundException {
+    private static String readStringFromFile(String filename) throws FileNotFoundException {
         BufferedReader reader;
         try {
-            reader = new BufferedReader(new FileReader("license.txt"));
+            reader = new BufferedReader(new FileReader(filename));
             return reader.readLine();
         } catch (IOException e) {
             e.printStackTrace();
